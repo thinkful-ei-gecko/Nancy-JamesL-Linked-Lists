@@ -4,9 +4,9 @@ class _Node {
         this.next = next
         this.prev = prev
     }
-}
-
-class DoubleLinkedList {
+  }
+  
+  class DoubleLinkedList {
     constructor() {
         this.head = null
         // this.tail = null
@@ -16,7 +16,7 @@ class DoubleLinkedList {
         // this.tail === null ? this.tail = this.head : this.tail = this.tail.next
         // this.tail = current.next
     }
-
+  
     insertLast(item) {
         if (this.head === null) {
             this.insertFirst(item)
@@ -28,61 +28,47 @@ class DoubleLinkedList {
             }
             let newNode = new _Node(item, null, tempNode)
             tempNode.next = newNode
-            //this.tail = newNode
+            this.tail = newNode
             //console.log(this.tail.next)
-
+  
         }
     }
     insertBefore(newVal, item) {
         if (this.head === null) {
             console.log('list is empty')
         }
-
-        let tempNode = this.head
-        // let prevNode = this.head
-
-        // console.log(tempNode, prevNode)
-        // while((tempNode.value !== item) && (tempNode !== null)) {
-        //     prevNode = tempNode
-        //     tempNode = tempNode.next
-        //     console.log('loop')
-        // }
-
-        while (tempNode.next !== null) {
-            if (tempNode.next.value === item) {
-                let newItem = new _Node(newVal, tempNode.next, tempNode);
-                tempNode.next.prev =
-
-                return;
-            }
-            tempNode = tempNode.next;
-            // console.log('done')
-            // let newItem = new _Node(newVal, tempNode, prevNode)
-            // newItem.prev = tempNode.next.prev
-            // prevNode.next = newItem
-            // tempNode.prev = newItem
+        if(this.head.value === item){
+          this.insertFirst(newVal)
         }
+        let prev = this.head
+        let curr = this.head
+        while((curr !== null) && (curr.value !== item)) {
+          prev = curr
+          curr = curr.next
+        }
+        let newNode = new _Node(newVal, curr, prev)
+        prev.next = newNode
+        curr.prev = newNode
     }
-
-}
-
-function display(ll) {
+  }
+  
+  function display(ll) {
     let curr = ll.head
     while (curr !== null) {
         console.log(curr.value)
         curr = curr.next
     }
-}
-
-function main() {
+  }
+  
+  function main() {
     let dll = new DoubleLinkedList()
-
+  
     dll.insertFirst('hi')
     dll.insertLast('bye')
     dll.insertLast('bye')
     dll.insertBefore('new', 'hi')
     display(dll)
-
-}
-
-main()
+  
+  }
+  
+  main()
